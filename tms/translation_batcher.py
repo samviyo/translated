@@ -7,7 +7,7 @@ class TranslationBatcher:
         self.to_translate = set()
         self.dynamodb = DynamoDB()
 
-    def add(self, text):
+    def add(self, text, owner):
         self.to_translate.add(text)
         return lazy(self.get_translation, str)(text)
 
