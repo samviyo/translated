@@ -4,16 +4,20 @@ from functools import wraps
 thread_local = threading.local()
 
 
-def translated(func):
-    @wraps(func)
-    def wrapper(*args, **kwargs):
-        thread_local.translated = True
-        try:
-            return func(*args, **kwargs)
-        finally:
-            thread_local.translated = False
+def translated(owner):
+    def translated_decorator(func):
+        @wraps(func)
+        def wrapper(request, *args, **kwargs):
+            thread_local.translated = True
+            thread_local.translation_batcher = request.translation_batcher
+            try:
+                return func(request, *args, **kwargs)
+            finally:
+                thread_local.translated = False
 
-    return wrapper
+        return wrapper
+
+    return translated_decorator
 
 
 def use_translated():
@@ -21,3 +25,14 @@ def use_translated():
         return thread_local.translated
 
     return False
+
+
+def lazy_translate(text):
+    if (
+        not use_translated()
+        or not hasattr(thread_local, "translation_batcher")
+        or not thread_local.translation_batcher
+    ):
+        return text
+
+    return thread_local.translation_batcher.add(text)

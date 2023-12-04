@@ -21,10 +21,3 @@ class TranslationBatcher:
             return
         self.translations = self.dynamodb.translate_all(self.to_translate)
         self.to_translate.clear()
-
-
-translation_batcher = TranslationBatcher()
-
-
-def lazy_translate(text):
-    return translation_batcher.add(text)

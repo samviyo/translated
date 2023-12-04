@@ -1,12 +1,10 @@
-from .translation_batcher import lazy_translate as _
 from django.shortcuts import render
 from django.core.paginator import Paginator
 from .models import BlogPost
 from .serializers.blog_post import BlogPostSerializer
-from .translated import translated
+from .translated import translated, lazy_translate as _
 
 
-@translated
 def get_blog_posts(page=1):
     posts_list = BlogPost.objects.order_by("id")
     paginator = Paginator(posts_list, 10)
@@ -15,6 +13,7 @@ def get_blog_posts(page=1):
     return serializer.data
 
 
+@translated(owner="AppSec")
 def index(request):
     page = request.GET.get("page", 1)
     return render(

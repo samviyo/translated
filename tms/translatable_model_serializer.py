@@ -1,6 +1,5 @@
-from .translation_batcher import lazy_translate as _
 from rest_framework import serializers
-from .translated import use_translated
+from .translated import use_translated, lazy_translate as _
 
 
 class TranslatableModelSerializer(serializers.ModelSerializer):
