@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Random Blog Posts</title>
+  </head>
+  <body>
+    <h1>Random Blog Posts</h1>
+    <table border="1">
+      <tr>
+        <th>Title</th>
+        <th>Content</th>
+        <th>Published Date</th>
+      </tr>
+      {% for post in blog_posts %}
+      <tr>
+        <td>{{ post.title }}</td>
+        <td>{{ post.content }}</td>
+        <td>{{ post.published_date }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </body>
+</html>
