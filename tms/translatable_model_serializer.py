@@ -9,9 +9,7 @@ class TranslatableModelSerializer(serializers.ModelSerializer):
             for field_name in self.Meta.translated_fields:
                 method = self.create_translated_field_method(field_name)
                 setattr(self, f"get_translated_{field_name}", method)
-                self.fields[
-                    f"translated_{field_name}"
-                ] = serializers.SerializerMethodField(
+                self.fields[f"{field_name}"] = serializers.SerializerMethodField(
                     method_name=f"get_translated_{field_name}"
                 )
 

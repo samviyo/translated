@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Post{% endblock title %}
+
+{% block content %}
+<style>
+    input[type="text"], textarea {
+        width: 100%;
+        padding: 0.5rem;
+        margin-bottom: 0.5rem;
+        border: 1px solid #ddd;
+        border-radius: 0.25rem;
+    }
+
+    input[type="text"]:focus, textarea:focus {
+        outline: none;
+        border-color: #93C5FD; /* Tailwind's light blue */
+        box-shadow: 0 0 0 1px #93C5FD;
+    }
+
+    .errorlist {
+        color: #F87171; /* Tailwind's red */
+    }
+</style>
+
+<div class="container mx-auto p-6">
+    <div class="bg-white p-4 rounded-lg shadow">
+        <form action="" method="post" class="space-y-4">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Save</button>
+        </form>
+    </div>
+</div>
+{% endblock content %}

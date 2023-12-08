@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ post.title }}{% endblock title %}
+
+{% block content %}
+<div class="container mx-auto p-6">
+    <div class="bg-white p-4 rounded-lg shadow">
+        <h1 class="text-2xl font-bold">{{ post.title }}</h1>
+        <p>{{ post.content }}</p>
+        <a href="{% url 'post_edit' pk=post.pk %}" class="text-sm text-blue-500 hover:underline">Edit</a>
+    </div>
+</div>
+{% endblock content %}

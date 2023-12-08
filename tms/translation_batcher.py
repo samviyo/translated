@@ -5,6 +5,7 @@ from .dynamodb import DynamoDB
 class TranslationBatcher:
     def __init__(self):
         self.to_translate = set()
+        self.translations = {}
         self.dynamodb = DynamoDB()
 
     def add(self, text, owner):
@@ -12,12 +13,14 @@ class TranslationBatcher:
         return lazy(self.get_translation, str)(text)
 
     def get_translation(self, text):
-        if not hasattr(self, "translations"):
+        if not self.translations.get(text):
             self.load_translations()
+
         return self.translations.get(text, text)
 
     def load_translations(self):
         if not self.to_translate:
             return
-        self.translations = self.dynamodb.translate_all(self.to_translate)
+
+        self.translations.update(self.dynamodb.translate_all(self.to_translate))
         self.to_translate.clear()
