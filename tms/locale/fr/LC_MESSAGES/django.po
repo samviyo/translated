@@ -1,0 +1,6 @@
+#: tms/templates/index.html:7
+msgid "Hello World"
+msgstr "Bonjour"
+
+msgid "random"
+msgstr "Not random at all"

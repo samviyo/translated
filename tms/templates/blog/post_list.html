@@ -13,6 +13,7 @@
         <div class="bg-white p-4 rounded-lg shadow">
             <h2 class="text-xl font-bold">{{ post.title }}</h2>
             <p>{{ post.content|truncatechars:100 }}</p>
+            <p>{{ post.random }}</p>
             <a href="{% url 'post_detail' pk=post.pk %}" class="text-blue-500 hover:underline">Read more</a>
         </div>
         {% empty %}

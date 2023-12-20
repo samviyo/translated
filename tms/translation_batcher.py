@@ -1,9 +1,11 @@
+from django.utils.translation import gettext as _, activate
 from django.utils.functional import lazy
 from .dynamodb import DynamoDB
 
 
 class TranslationBatcher:
     def __init__(self):
+        activate("fr")
         self.to_translate = set()
         self.translations = {}
         self.dynamodb = DynamoDB()
@@ -13,6 +15,12 @@ class TranslationBatcher:
         return lazy(self.get_translation, str)(text)
 
     def get_translation(self, text):
+        po_translation = _(text)
+        print(po_translation)
+
+        if po_translation != text:
+            return po_translation
+
         if not self.translations.get(text):
             self.load_translations()
 

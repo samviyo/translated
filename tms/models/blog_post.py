@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 
+
 class BlogPost(models.Model):
     title = models.CharField(max_length=200)
     content = models.TextField()
@@ -11,4 +12,4 @@ class BlogPost(models.Model):
         return self.title
 
     class Meta:
-        ordering = ['-published_date']
+        ordering = ["-published_date"]

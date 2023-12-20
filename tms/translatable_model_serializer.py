@@ -20,7 +20,10 @@ class TranslatableModelSerializer(serializers.ModelSerializer):
         return method
 
     def get_field_translated(self, obj, field_name):
-        original_text = getattr(obj, field_name, "")
+        if hasattr(self, f"get_{field_name}"):
+            original_text = getattr(self, f"get_{field_name}")(obj)
+        else:
+            original_text = getattr(obj, field_name, "")
         return _(original_text)
 
     def to_representation(self, instance):
